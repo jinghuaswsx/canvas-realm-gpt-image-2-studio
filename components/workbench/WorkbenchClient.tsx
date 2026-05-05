@@ -17,6 +17,7 @@ import {
   PinOff,
   RefreshCw,
   Save,
+  BookOpen,
   Send,
   Sparkles,
   Square,
@@ -37,6 +38,7 @@ import type {
   PublicTemplate,
 } from "@/lib/types";
 import { apiJson, copyTextToClipboard, formatDateTime, modeLabels, progressStageLabels, statusLabels } from "@/components/client-api";
+import { PromptLibraryModal } from "@/components/workbench/PromptLibraryModal";
 
 type WorkbenchMode = Exclude<GenerationMode, "edit_image">;
 type ChatAttachmentRole = "primary" | "reference";
@@ -215,6 +217,7 @@ export function WorkbenchClient() {
   const [fixedPromptEditorOpen, setFixedPromptEditorOpen] = useState(false);
   const [fixedPromptSaving, setFixedPromptSaving] = useState(false);
   const [templates, setTemplates] = useState<PublicTemplate[]>([]);
+  const [promptLibraryOpen, setPromptLibraryOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [chatBusy, setChatBusy] = useState(false);
   const [cancelingTaskId, setCancelingTaskId] = useState<string | null>(null);
@@ -961,7 +964,16 @@ export function WorkbenchClient() {
             {selectedTemplate ? <span className="badge">{selectedTemplate.description || "模板参数已填入"}</span> : null}
 
             <div className="field">
-              <label htmlFor="prompt">Prompt</label>
+              <div className="field-label-row">
+                <label htmlFor="prompt">Prompt</label>
+                <button
+                  type="button"
+                  className="prompt-library-trigger"
+                  onClick={() => setPromptLibraryOpen(true)}
+                >
+                  <BookOpen size={14} aria-hidden="true" /> 提示词库
+                </button>
+              </div>
               <textarea
                 id="prompt"
                 className="textarea"
@@ -1238,6 +1250,11 @@ export function WorkbenchClient() {
           </div>
         </aside>
       </section>
+      <PromptLibraryModal
+        open={promptLibraryOpen}
+        onClose={() => setPromptLibraryOpen(false)}
+        onSelect={(value) => setPrompt(value)}
+      />
     </>
   );
 }
