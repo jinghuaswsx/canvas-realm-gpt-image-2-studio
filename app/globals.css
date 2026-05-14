@@ -300,7 +300,7 @@ button.nav-link {
 }
 
 .textarea {
-  min-height: 8.5rem;
+  min-height: 17rem;
   resize: vertical;
   padding: 0.75rem;
   line-height: 1.6;
@@ -686,7 +686,7 @@ button.nav-link {
 
 .workbench-layout {
   display: grid;
-  grid-template-columns: minmax(19rem, 24rem) minmax(0, 1fr) minmax(19rem, 24rem);
+  grid-template-columns: minmax(38rem, 48rem) minmax(0, 1fr) minmax(19rem, 24rem);
   gap: 1rem;
   align-items: stretch;
   min-width: 0;
@@ -2203,4 +2203,74 @@ button.nav-link {
   .prompt-library-preview-body {
     grid-template-columns: 1fr;
   }
+}
+
+.full-prompt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background: rgba(8, 21, 17, 0.42);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-prompt-modal {
+  position: relative;
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.full-prompt-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.full-prompt-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.full-prompt-textarea {
+  flex: 1 1 0;
+  min-height: 0;
+  margin: 1rem 1.4rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+}
+
+.full-prompt-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.full-prompt-footer {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  border-top: 1px solid var(--line);
 }

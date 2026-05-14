@@ -18,6 +18,7 @@ import {
   RefreshCw,
   Save,
   BookOpen,
+  Maximize2,
   Send,
   Sparkles,
   Square,
@@ -218,6 +219,7 @@ export function WorkbenchClient() {
   const [fixedPromptSaving, setFixedPromptSaving] = useState(false);
   const [templates, setTemplates] = useState<PublicTemplate[]>([]);
   const [promptLibraryOpen, setPromptLibraryOpen] = useState(false);
+  const [fullPromptOpen, setFullPromptOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [chatBusy, setChatBusy] = useState(false);
   const [cancelingTaskId, setCancelingTaskId] = useState<string | null>(null);
@@ -969,6 +971,13 @@ export function WorkbenchClient() {
                 <button
                   type="button"
                   className="prompt-library-trigger"
+                  onClick={() => setFullPromptOpen(true)}
+                >
+                  <Maximize2 size={14} aria-hidden="true" /> 完整提示词
+                </button>
+                <button
+                  type="button"
+                  className="prompt-library-trigger"
                   onClick={() => setPromptLibraryOpen(true)}
                 >
                   <BookOpen size={14} aria-hidden="true" /> 提示词库
@@ -1255,6 +1264,28 @@ export function WorkbenchClient() {
         onClose={() => setPromptLibraryOpen(false)}
         onSelect={(value) => setPrompt(value)}
       />
+      {fullPromptOpen && (
+        <div className="full-prompt-overlay" onClick={() => setFullPromptOpen(false)}>
+          <div className="full-prompt-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="full-prompt-header">
+              <h2>完整提示词</h2>
+              <button className="icon-button ghost" type="button" onClick={() => setFullPromptOpen(false)}>
+                <X size={16} aria-hidden="true" />
+              </button>
+            </div>
+            <textarea
+              className="full-prompt-textarea"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+            <div className="full-prompt-footer">
+              <button className="button primary" type="button" onClick={() => setFullPromptOpen(false)}>
+                确定
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
