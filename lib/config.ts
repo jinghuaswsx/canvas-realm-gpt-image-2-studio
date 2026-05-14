@@ -85,6 +85,7 @@ export const appConfig = {
   updateCheckUrl: process.env.UPDATE_CHECK_URL || defaultUpdateCheckUrl,
   updateRepo: process.env.UPDATE_REPO || defaultUpdateRepo,
   webUpdateEnabled: readBooleanEnv("WEB_UPDATE_ENABLED"),
+  drawingStudioSsoSecret: process.env.DRAWING_STUDIO_SSO_SECRET || "",
 };
 
 export const IMAGE_USER_AGENT =
